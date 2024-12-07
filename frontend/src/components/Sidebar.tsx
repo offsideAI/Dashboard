@@ -8,31 +8,33 @@ import {
   Typography,
   Box,
   Divider,
+  ListItemButton,
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import TaskIcon from '@mui/icons-material/Assignment';
-import InboxIcon from '@mui/icons-material/Inbox';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import FolderIcon from '@mui/icons-material/Folder';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
   const mainMenuItems = [
-    { text: 'Home', icon: <HomeIcon />, count: 0 },
-    { text: 'My Tasks', icon: <TaskIcon />, count: 22 },
-    { text: 'Inbox', icon: <InboxIcon />, count: 15 },
-    { text: 'Reporting', icon: <BarChartIcon />, count: 0 },
-    { text: 'Portfolios', icon: <FolderIcon />, count: 0 },
+    { text: 'Home', icon: <HomeOutlinedIcon sx={{ color: '#666' }} />, count: 0 },
+    { text: 'My Tasks', icon: <AssignmentOutlinedIcon sx={{ color: '#666' }} />, count: 22 },
+    { text: 'Inbox', icon: <EmailOutlinedIcon sx={{ color: '#666' }} />, count: 15 },
+    { text: 'Reporting', icon: <InsertChartOutlinedIcon sx={{ color: '#666' }} />, count: 0 },
+    { text: 'Portfolios', icon: <FolderOutlinedIcon sx={{ color: '#666' }} />, count: 0 },
   ];
 
   const workspaceItems = [
-    { text: 'Design Team', icon: '🎨' },
-    { text: 'Marketing', icon: '📢' },
-    { text: 'Development', icon: '💻' },
-    { text: 'Product Launch', icon: '🚀' },
+    { text: 'Branding and Identity', icon: '🎨', color: '#FF6B6B' },
+    { text: 'Marketing Team', icon: '📢', color: '#4ECDC4' },
+    { text: 'Product Launch', icon: '🚀', color: '#45B7D1' },
+    { text: 'Team Brainstorm', icon: '💡', color: '#96CEB4' },
   ];
 
   return (
@@ -44,23 +46,64 @@ const Sidebar = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+          borderRight: '1px solid rgba(0, 0, 0, 0.08)',
+          backgroundColor: '#FFFFFF',
         },
       }}
     >
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6" component="div">
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Typography variant="h6" component="div" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
           Dashboard
+        </Typography>
+      </Box>
+
+      <Box sx={{ px: 2, py: 1 }}>
+        <ListItemButton
+          sx={{
+            borderRadius: '8px',
+            mb: 1,
+            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+          }}
+        >
+          <ListItemIcon>
+            <AddCircleOutlineIcon sx={{ color: '#666' }} />
+          </ListItemIcon>
+          <ListItemText primary="Create" sx={{ color: '#666' }} />
+        </ListItemButton>
+      </Box>
+
+      <Box sx={{ px: 2, py: 1 }}>
+        <Typography variant="caption" sx={{ color: '#666', px: 2 }}>
+          GENERAL
         </Typography>
       </Box>
 
       <List>
         {mainMenuItems.map((item) => (
-          <ListItem button key={item.text}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+          <ListItem
+            button
+            key={item.text}
+            sx={{
+              px: 2,
+              py: 1,
+              '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+              borderRadius: '0 20px 20px 0',
+              mr: 2,
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+            <ListItemText 
+              primary={item.text} 
+              sx={{ 
+                '& .MuiTypography-root': { 
+                  fontSize: '0.95rem',
+                  color: '#1a1a1a',
+                  fontWeight: 500
+                } 
+              }} 
+            />
             {item.count > 0 && (
-              <Typography variant="caption" color="textSecondary">
+              <Typography variant="caption" sx={{ color: '#666' }}>
                 {item.count}
               </Typography>
             )}
@@ -68,21 +111,54 @@ const Sidebar = () => {
         ))}
       </List>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2, mx: 2 }} />
 
-      <Box sx={{ px: 2, mb: 2 }}>
-        <Typography variant="subtitle2" color="textSecondary">
+      <Box sx={{ px: 2, py: 1 }}>
+        <Typography variant="caption" sx={{ color: '#666', px: 2 }}>
           MY WORKSPACE
         </Typography>
       </Box>
 
       <List>
         {workspaceItems.map((item) => (
-          <ListItem button key={item.text}>
-            <ListItemIcon>
-              <Typography fontSize="1.2rem">{item.icon}</Typography>
+          <ListItem
+            button
+            key={item.text}
+            sx={{
+              px: 2,
+              py: 1,
+              '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+              borderRadius: '0 20px 20px 0',
+              mr: 2,
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <Box
+                sx={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1rem',
+                  backgroundColor: item.color + '20',
+                  color: item.color,
+                }}
+              >
+                {item.icon}
+              </Box>
             </ListItemIcon>
-            <ListItemText primary={item.text} />
+            <ListItemText 
+              primary={item.text} 
+              sx={{ 
+                '& .MuiTypography-root': { 
+                  fontSize: '0.95rem',
+                  color: '#1a1a1a',
+                  fontWeight: 500
+                } 
+              }} 
+            />
           </ListItem>
         ))}
       </List>
@@ -90,17 +166,49 @@ const Sidebar = () => {
       <Box sx={{ flexGrow: 1 }} />
 
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          sx={{
+            px: 2,
+            py: 1,
+            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+          }}
+        >
           <ListItemIcon>
-            <HelpIcon />
+            <HelpOutlineOutlinedIcon sx={{ color: '#666' }} />
           </ListItemIcon>
-          <ListItemText primary="Help" />
+          <ListItemText 
+            primary="Get help" 
+            sx={{ 
+              '& .MuiTypography-root': { 
+                fontSize: '0.95rem',
+                color: '#666',
+                fontWeight: 500
+              } 
+            }} 
+          />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          sx={{
+            px: 2,
+            py: 1,
+            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+          }}
+        >
           <ListItemIcon>
-            <SettingsIcon />
+            <SettingsOutlinedIcon sx={{ color: '#666' }} />
           </ListItemIcon>
-          <ListItemText primary="Settings" />
+          <ListItemText 
+            primary="Settings" 
+            sx={{ 
+              '& .MuiTypography-root': { 
+                fontSize: '0.95rem',
+                color: '#666',
+                fontWeight: 500
+              } 
+            }} 
+          />
         </ListItem>
       </List>
     </Drawer>
