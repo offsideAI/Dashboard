@@ -45,9 +45,13 @@ const TimeTracker = () => {
 
   return (
     <Paper
+      elevation={0}
       sx={{
         p: 3,
-        background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
+        bgcolor: 'background.paper',
+        borderRadius: '16px',
+        background: 'linear-gradient(45deg, #FF9B6A 30%, #FF7B9C 90%)',
+        opacity: 0.9,
         color: 'white',
       }}
     >

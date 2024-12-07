@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   AppBar, 
+  Box, 
   Toolbar, 
-  Typography, 
   IconButton, 
-  Avatar, 
-  Box,
+  Typography,
   InputBase,
-  alpha
+  Badge,
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon
 } from '@mui/material';
+import {
+  Search as SearchIcon,
+  Notifications as NotificationsIcon,
+  Settings as SettingsIcon,
+  Person as PersonIcon,
+  Logout as LogoutIcon,
+  KeyboardArrowLeft as KeyboardArrowLeftIcon,
+  KeyboardArrowRight as KeyboardArrowRightIcon
+} from '@mui/icons-material';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
-const Header = () => {
-  const username = 'Amanda';
+const Header: React.FC = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const username = 'USC';
   const currentDate = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'long',
@@ -29,8 +48,8 @@ const Header = () => {
       color="transparent"
       elevation={0}
       sx={{ 
-        borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-        backgroundColor: '#fff'
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        backgroundColor: 'background.paper'
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between', minHeight: '72px' }}>
@@ -60,15 +79,15 @@ const Header = () => {
             sx={{
               position: 'relative',
               borderRadius: '8px',
-              backgroundColor: alpha('#000', 0.04),
+              backgroundColor: 'rgba(0, 0, 0, 0.04)',
               '&:hover': {
-                backgroundColor: alpha('#000', 0.06),
+                backgroundColor: 'rgba(0, 0, 0, 0.06)',
               },
               width: '240px',
             }}
           >
             <Box sx={{ position: 'absolute', p: 2 }}>
-              <SearchOutlinedIcon sx={{ color: '#666', fontSize: 20 }} />
+              <SearchIcon sx={{ color: '#666', fontSize: 20 }} />
             </Box>
             <InputBase
               placeholder="Search..."
@@ -90,29 +109,88 @@ const Header = () => {
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar 
-                alt={username}
-                src="/avatar.jpg"
-                sx={{ 
-                  width: 32, 
-                  height: 32,
-                  border: '2px solid #fff',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                }}
-              />
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <Avatar 
+                  sx={{ 
+                    width: 32, 
+                    height: 32,
+                    bgcolor: 'primary.main'
+                  }}
+                >
+                  U
+                </Avatar>
+              </IconButton>
               <Typography 
                 variant="subtitle1"
                 sx={{ 
                   fontSize: '0.95rem',
                   fontWeight: 500,
-                  color: '#1a1a1a'
+                  color: 'text.primary'
                 }}
               >
                 {username}
               </Typography>
             </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  bgcolor: 'background.paper',
+                  '& .MuiMenuItem-root': {
+                    color: 'text.primary',
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <PersonIcon fontSize="small" sx={{ color: 'text.primary' }} />
+                </ListItemIcon>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <SettingsIcon fontSize="small" sx={{ color: 'text.primary' }} />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" sx={{ color: 'text.primary' }} />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
             <IconButton size="small">
-              <SettingsOutlinedIcon sx={{ fontSize: 20, color: '#666' }} />
+              <SettingsIcon sx={{ fontSize: 20, color: '#666' }} />
             </IconButton>
           </Box>
         </Box>

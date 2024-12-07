@@ -75,11 +75,12 @@ const TaskList = () => {
 
   return (
     <Paper 
+      elevation={0}
       sx={{ 
-        p: 3,
-        backgroundColor: '#fff',
-        borderRadius: '12px',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+        p: 3, 
+        bgcolor: 'background.paper',
+        borderRadius: '16px',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
       }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -88,13 +89,13 @@ const TaskList = () => {
           sx={{ 
             fontSize: '1.1rem',
             fontWeight: 600,
-            color: '#1a1a1a'
+            color: 'text.primary'
           }}
         >
           Tasks I've assigned
         </Typography>
-        <IconButton size="small">
-          <AddOutlinedIcon sx={{ fontSize: 20, color: '#666' }} />
+        <IconButton size="small" sx={{ color: 'text.secondary' }}>
+          <AddOutlinedIcon sx={{ fontSize: 20 }} />
         </IconButton>
       </Box>
 
@@ -109,11 +110,11 @@ const TaskList = () => {
               textTransform: 'none',
               fontSize: '0.9rem',
               fontWeight: 500,
-              color: '#666',
+              color: 'text.secondary',
               padding: '6px 16px',
             },
             '& .Mui-selected': {
-              color: '#2196f3',
+              color: 'primary.main',
             },
           }}
         >
@@ -132,7 +133,8 @@ const TaskList = () => {
               flexDirection: 'column',
               alignItems: 'stretch',
               py: 2,
-              borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+              borderBottom: '1px solid',
+              borderColor: 'divider',
               '&:last-child': {
                 borderBottom: 'none',
               },
@@ -145,13 +147,13 @@ const TaskList = () => {
                     width: 24,
                     height: 24,
                     borderRadius: '6px',
-                    backgroundColor: task.color + '20',
-                    color: task.color,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '0.8rem',
                     fontWeight: 600,
+                    backgroundColor: `${task.color}15`,
+                    color: task.color,
                   }}
                 >
                   {task.priority}
@@ -161,7 +163,7 @@ const TaskList = () => {
                   sx={{ 
                     fontSize: '0.95rem',
                     fontWeight: 500,
-                    color: '#1a1a1a'
+                    color: 'text.primary'
                   }}
                 >
                   {task.title}
@@ -171,14 +173,14 @@ const TaskList = () => {
                 <Typography 
                   variant="body2" 
                   sx={{ 
-                    color: task.progress > 100 ? '#FF6B6B' : '#666',
+                    color: task.progress > 100 ? '#FF6B6B' : 'text.secondary',
                     fontSize: '0.9rem'
                   }}
                 >
                   {task.progress}%
                 </Typography>
-                <IconButton size="small">
-                  <MoreHorizOutlinedIcon sx={{ fontSize: 20, color: '#666' }} />
+                <IconButton size="small" sx={{ color: 'text.secondary' }}>
+                  <MoreHorizOutlinedIcon sx={{ fontSize: 20 }} />
                 </IconButton>
               </Box>
             </Box>
@@ -189,7 +191,7 @@ const TaskList = () => {
                   height: 4,
                   flexGrow: 1,
                   borderRadius: 2,
-                  bgcolor: 'rgba(0, 0, 0, 0.04)',
+                  bgcolor: 'rgba(255, 255, 255, 0.05)',
                   overflow: 'hidden',
                 }}
               >
@@ -197,7 +199,7 @@ const TaskList = () => {
                   sx={{
                     width: `${Math.min(task.progress, 100)}%`,
                     height: '100%',
-                    bgcolor: task.progress > 100 ? '#FF6B6B' : '#2196f3',
+                    bgcolor: task.progress > 100 ? '#FF6B6B' : 'primary.main',
                     borderRadius: 2,
                   }}
                 />
@@ -209,7 +211,8 @@ const TaskList = () => {
                     width: 24,
                     height: 24,
                     fontSize: '0.8rem',
-                    border: '2px solid #fff',
+                    border: '2px solid',
+                    borderColor: 'background.paper',
                   },
                 }}
               >

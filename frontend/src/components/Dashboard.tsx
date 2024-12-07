@@ -1,24 +1,24 @@
 import React from 'react';
 import { Grid, Paper, Typography, Box, LinearProgress } from '@mui/material';
 import { Doughnut } from 'react-chartjs-2';
-import TaskList from './TaskList.tsx';
-import TimeTracker from './TimeTracker.tsx';
+import TaskList from './TaskList';
+import TimeTracker from './TimeTracker';
 
 const Dashboard = () => {
   // Sample data for the activity chart
   const activityData = {
-    labels: ['Working Hours', 'Tasks Completed', 'Projects Completed'],
+    labels: ['Completed', 'In Progress', 'Pending'],
     datasets: [
       {
-        data: [29, 8, 4],
-        backgroundColor: ['#FFB020', '#14B8A6', '#5048E5'],
+        data: [65, 25, 10],
+        backgroundColor: ['#4CAF50', '#2196F3', '#FFC107'],
         borderWidth: 0,
       },
     ],
   };
 
   const chartOptions = {
-    cutout: '70%',
+    cutout: '75%',
     plugins: {
       legend: {
         display: false,
@@ -28,71 +28,84 @@ const Dashboard = () => {
   };
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
-        <TaskList />
-      </Grid>
-
-      <Grid item xs={12} md={4}>
-        <TimeTracker />
-        
-        <Paper sx={{ p: 3, mt: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Activity
+    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: 'background.default' }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h5" sx={{ mb: 3, color: 'text.primary', fontWeight: 600 }}>
+            Dashboard
           </Typography>
-          <Box sx={{ height: 300, position: 'relative' }}>
-            <Doughnut data={activityData} options={chartOptions} />
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="h4">75%</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Completion
-              </Typography>
-            </Box>
-          </Box>
+        </Grid>
+        
+        <Grid item xs={12} md={8}>
+          <TaskList />
+        </Grid>
 
-          <Box sx={{ mt: 2 }}>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle2" gutterBottom>
-                Working Hours (29/40)
-              </Typography>
-              <LinearProgress
-                variant="determinate"
-                value={72.5}
-                sx={{ height: 8, borderRadius: 4 }}
-              />
-            </Box>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle2" gutterBottom>
-                Tasks Completed (8/12)
-              </Typography>
-              <LinearProgress
-                variant="determinate"
-                value={66.7}
-                sx={{ height: 8, borderRadius: 4 }}
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" gutterBottom>
-                Projects Completed (4/7)
-              </Typography>
-              <LinearProgress
-                variant="determinate"
-                value={57.1}
-                sx={{ height: 8, borderRadius: 4 }}
-              />
-            </Box>
-          </Box>
-        </Paper>
+        <Grid item xs={12} md={4}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 3, bgcolor: 'background.paper', borderRadius: '16px' }}>
+                <Typography variant="h6" sx={{ mb: 2, color: 'text.primary', fontWeight: 600 }}>
+                  Activity Overview
+                </Typography>
+                <Box sx={{ height: 200, position: 'relative' }}>
+                  <Doughnut data={activityData} options={chartOptions} />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Typography variant="h4" sx={{ color: 'text.primary', fontWeight: 600 }}>
+                      65%
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                      Completed
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                  {activityData.labels.map((label, index) => (
+                    <Box
+                      key={label}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        mb: 1,
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box
+                          sx={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: '50%',
+                            bgcolor: activityData.datasets[0].backgroundColor[index],
+                            mr: 1,
+                          }}
+                        />
+                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                          {label}
+                        </Typography>
+                      </Box>
+                      <Typography variant="body2" sx={{ color: 'text.primary' }}>
+                        {activityData.datasets[0].data[index]}%
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TimeTracker />
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

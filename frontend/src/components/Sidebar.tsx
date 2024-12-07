@@ -46,13 +46,13 @@ const Sidebar = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          borderRight: '1px solid rgba(0, 0, 0, 0.08)',
-          backgroundColor: '#FFFFFF',
+          borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'background.paper',
         },
       }}
     >
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Typography variant="h6" component="div" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
+        <Typography variant="h6" component="div" sx={{ color: 'text.primary', fontWeight: 600 }}>
           Dashboard
         </Typography>
       </Box>
@@ -97,7 +97,7 @@ const Sidebar = () => {
               sx={{ 
                 '& .MuiTypography-root': { 
                   fontSize: '0.95rem',
-                  color: '#1a1a1a',
+                  color: 'text.primary',
                   fontWeight: 500
                 } 
               }} 
@@ -142,7 +142,7 @@ const Sidebar = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '1rem',
-                  backgroundColor: item.color + '20',
+                  backgroundColor: item.color + '15',
                   color: item.color,
                 }}
               >
@@ -154,7 +154,7 @@ const Sidebar = () => {
               sx={{ 
                 '& .MuiTypography-root': { 
                   fontSize: '0.95rem',
-                  color: '#1a1a1a',
+                  color: 'text.primary',
                   fontWeight: 500
                 } 
               }} 
@@ -182,7 +182,7 @@ const Sidebar = () => {
             sx={{ 
               '& .MuiTypography-root': { 
                 fontSize: '0.95rem',
-                color: '#666',
+                color: 'text.secondary',
                 fontWeight: 500
               } 
             }} 
@@ -204,7 +204,7 @@ const Sidebar = () => {
             sx={{ 
               '& .MuiTypography-root': { 
                 fontSize: '0.95rem',
-                color: '#666',
+                color: 'text.secondary',
                 fontWeight: 500
               } 
             }} 
